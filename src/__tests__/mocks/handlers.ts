@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
 
-const API_URL = 'http://localhost:8000/api';
+const API_URL = 'http://localhost:8000/api/v1';
 
 // Mock user data
 export const mockUser = {
@@ -9,8 +9,50 @@ export const mockUser = {
   username: 'testuser',
   fullName: 'Test User',
   avatarUrl: 'https://example.com/avatar.jpg',
+  coverUrl: 'https://example.com/cover.jpg',
+  bio: 'This is my bio',
+  location: 'New York, USA',
+  website: 'https://example.com',
   isVerified: true,
+  isFollowing: false,
+  isFollowedBy: false,
+  postsCount: 42,
+  followersCount: 100,
+  followingCount: 50,
+  createdAt: '2024-01-01T00:00:00Z',
 };
+
+// Other user for profile tests
+export const mockOtherUser = {
+  id: '2',
+  email: 'other@example.com',
+  username: 'otheruser',
+  fullName: 'Other User',
+  avatarUrl: 'https://example.com/other-avatar.jpg',
+  coverUrl: 'https://example.com/other-cover.jpg',
+  bio: 'Other user bio',
+  location: 'Los Angeles, USA',
+  website: 'https://other.com',
+  isVerified: false,
+  isFollowing: false,
+  isFollowedBy: true,
+  postsCount: 20,
+  followersCount: 50,
+  followingCount: 30,
+  createdAt: '2024-02-01T00:00:00Z',
+};
+
+// Mock followers/following lists
+export const mockFollowers = [
+  { id: '3', username: 'follower1', fullName: 'Follower One', avatarUrl: null, isVerified: false, isFollowing: false },
+  { id: '4', username: 'follower2', fullName: 'Follower Two', avatarUrl: null, isVerified: true, isFollowing: true },
+  { id: '5', username: 'follower3', fullName: 'Follower Three', avatarUrl: null, isVerified: false, isFollowing: false },
+];
+
+export const mockFollowing = [
+  { id: '6', username: 'following1', fullName: 'Following One', avatarUrl: null, isVerified: true, isFollowing: true },
+  { id: '7', username: 'following2', fullName: 'Following Two', avatarUrl: null, isVerified: false, isFollowing: true },
+];
 
 export const mockTokens = {
   accessToken: 'mock-access-token',
@@ -24,6 +66,10 @@ export const mockState = {
   registeredEmails: new Set<string>(),
   verifiedEmails: new Set<string>(),
   passwordResetEmails: new Set<string>(),
+  // Profile-related state
+  followedUsers: new Set<string>(),
+  blockedUsers: new Set<string>(),
+  currentUserProfile: { ...mockUser },
 };
 
 export const resetMockState = () => {
@@ -32,6 +78,9 @@ export const resetMockState = () => {
   mockState.registeredEmails.clear();
   mockState.verifiedEmails.clear();
   mockState.passwordResetEmails.clear();
+  mockState.followedUsers.clear();
+  mockState.blockedUsers.clear();
+  mockState.currentUserProfile = { ...mockUser };
 };
 
 export const handlers = [
@@ -250,7 +299,240 @@ export const handlers = [
 
     return HttpResponse.json({
       success: true,
-      data: mockUser,
+      data: mockState.currentUserProfile,
+    });
+  }),
+
+  // Get user by username
+  http.get(`${API_URL}/users/username/:username`, ({ params }) => {
+    const { username } = params;
+
+    if (username === 'testuser') {
+      return HttpResponse.json({
+        success: true,
+        data: {
+          ...mockUser,
+          isFollowing: mockState.followedUsers.has(mockUser.id),
+        },
+      });
+    }
+
+    if (username === 'otheruser') {
+      return HttpResponse.json({
+        success: true,
+        data: {
+          ...mockOtherUser,
+          isFollowing: mockState.followedUsers.has(mockOtherUser.id),
+        },
+      });
+    }
+
+    if (username === 'blockeduser') {
+      return HttpResponse.json({
+        success: false,
+        error: {
+          code: 'USER_BLOCKED',
+          message: 'You have blocked this user',
+        },
+      }, { status: 403 });
+    }
+
+    return HttpResponse.json({
+      success: false,
+      error: {
+        code: 'USER_NOT_FOUND',
+        message: 'User not found',
+      },
+    }, { status: 404 });
+  }),
+
+  // Get user by ID
+  http.get(`${API_URL}/users/:id`, ({ params }) => {
+    const { id } = params;
+
+    if (id === '1') {
+      return HttpResponse.json({
+        success: true,
+        data: mockUser,
+      });
+    }
+
+    if (id === '2') {
+      return HttpResponse.json({
+        success: true,
+        data: mockOtherUser,
+      });
+    }
+
+    return HttpResponse.json({
+      success: false,
+      error: {
+        code: 'USER_NOT_FOUND',
+        message: 'User not found',
+      },
+    }, { status: 404 });
+  }),
+
+  // Update profile
+  http.patch(`${API_URL}/users/me`, async ({ request }) => {
+    const body = await request.json() as Record<string, unknown>;
+
+    mockState.currentUserProfile = {
+      ...mockState.currentUserProfile,
+      ...body,
+    };
+
+    return HttpResponse.json({
+      success: true,
+      data: mockState.currentUserProfile,
+    });
+  }),
+
+  // Upload avatar
+  http.post(`${API_URL}/users/me/avatar`, async () => {
+    const newAvatarUrl = 'https://example.com/new-avatar.jpg';
+    mockState.currentUserProfile.avatarUrl = newAvatarUrl;
+
+    return HttpResponse.json({
+      success: true,
+      data: { avatarUrl: newAvatarUrl },
+    });
+  }),
+
+  // Upload cover
+  http.post(`${API_URL}/users/me/cover`, async () => {
+    const newCoverUrl = 'https://example.com/new-cover.jpg';
+    mockState.currentUserProfile.coverUrl = newCoverUrl;
+
+    return HttpResponse.json({
+      success: true,
+      data: { coverUrl: newCoverUrl },
+    });
+  }),
+
+  // Delete avatar
+  http.delete(`${API_URL}/users/me/avatar`, () => {
+    mockState.currentUserProfile.avatarUrl = '';
+
+    return HttpResponse.json({
+      success: true,
+      data: { message: 'Avatar deleted' },
+    });
+  }),
+
+  // Delete cover
+  http.delete(`${API_URL}/users/me/cover`, () => {
+    mockState.currentUserProfile.coverUrl = '';
+
+    return HttpResponse.json({
+      success: true,
+      data: { message: 'Cover deleted' },
+    });
+  }),
+
+  // Follow user
+  http.post(`${API_URL}/users/:id/follow`, ({ params }) => {
+    const { id } = params as { id: string };
+    mockState.followedUsers.add(id);
+
+    return HttpResponse.json({
+      success: true,
+      data: { followed: true },
+    });
+  }),
+
+  // Unfollow user
+  http.post(`${API_URL}/users/:id/unfollow`, ({ params }) => {
+    const { id } = params as { id: string };
+    mockState.followedUsers.delete(id);
+
+    return HttpResponse.json({
+      success: true,
+      data: { unfollowed: true },
+    });
+  }),
+
+  // Block user
+  http.post(`${API_URL}/users/:id/block`, ({ params }) => {
+    const { id } = params as { id: string };
+    mockState.blockedUsers.add(id);
+    mockState.followedUsers.delete(id);
+
+    return HttpResponse.json({
+      success: true,
+      data: { blocked: true },
+    });
+  }),
+
+  // Unblock user
+  http.post(`${API_URL}/users/:id/unblock`, ({ params }) => {
+    const { id } = params as { id: string };
+    mockState.blockedUsers.delete(id);
+
+    return HttpResponse.json({
+      success: true,
+      data: { unblocked: true },
+    });
+  }),
+
+  // Get followers
+  http.get(`${API_URL}/users/:id/followers`, () => {
+    return HttpResponse.json({
+      success: true,
+      data: {
+        users: mockFollowers,
+        total: mockFollowers.length,
+        page: 1,
+        limit: 20,
+        hasMore: false,
+      },
+    });
+  }),
+
+  // Get following
+  http.get(`${API_URL}/users/:id/following`, () => {
+    return HttpResponse.json({
+      success: true,
+      data: {
+        users: mockFollowing,
+        total: mockFollowing.length,
+        page: 1,
+        limit: 20,
+        hasMore: false,
+      },
+    });
+  }),
+
+  // Get blocked users
+  http.get(`${API_URL}/users/me/blocked`, () => {
+    const blockedUsersList = Array.from(mockState.blockedUsers).map((id, index) => ({
+      id,
+      username: `blockeduser${index}`,
+      fullName: `Blocked User ${index}`,
+      avatarUrl: null,
+      isVerified: false,
+    }));
+
+    return HttpResponse.json({
+      success: true,
+      data: { users: blockedUsersList },
+    });
+  }),
+
+  // Check username availability
+  http.get(`${API_URL}/users/check-username/:username`, ({ params }) => {
+    const { username } = params;
+
+    if (username === 'taken' || username === 'existinguser') {
+      return HttpResponse.json({
+        success: true,
+        data: { available: false },
+      });
+    }
+
+    return HttpResponse.json({
+      success: true,
+      data: { available: true },
     });
   }),
 ];

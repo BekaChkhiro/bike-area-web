@@ -5,7 +5,6 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import {
   Bike,
-  Search,
   Bell,
   Menu,
   LogOut,
@@ -15,7 +14,7 @@ import {
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { SearchModal, useSearchModal, HeaderSearch } from '@/components/search';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -39,6 +38,7 @@ export function Header({ onMenuClick, className }: HeaderProps) {
   const { data: session } = useSession();
   const router = useRouter();
   const logout = useLogout();
+  const { open: searchOpen, setOpen: setSearchOpen } = useSearchModal();
 
   const user = session?.user;
   const initials = user?.name
@@ -77,26 +77,13 @@ export function Header({ onMenuClick, className }: HeaderProps) {
         </span>
       </Link>
 
-      {/* Search bar - Desktop */}
-      <div className="hidden flex-1 md:flex md:max-w-md lg:max-w-lg">
-        <div className="relative w-full">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            type="search"
-            placeholder="Search riders, posts, bikes..."
-            className="w-full pl-10"
-          />
-        </div>
+      {/* Search - Opens modal on click */}
+      <div className="flex-1 md:max-w-md lg:max-w-lg">
+        <HeaderSearch onOpenModal={() => setSearchOpen(true)} />
       </div>
 
       {/* Right side actions */}
       <div className="ml-auto flex items-center gap-2">
-        {/* Search button - Mobile */}
-        <Button variant="ghost" size="icon" className="md:hidden">
-          <Search className="h-5 w-5" />
-          <span className="sr-only">Search</span>
-        </Button>
-
         {/* Theme toggle */}
         <ThemeToggleSimple />
 
@@ -157,6 +144,9 @@ export function Header({ onMenuClick, className }: HeaderProps) {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+
+      {/* Search Modal */}
+      <SearchModal open={searchOpen} onOpenChange={setSearchOpen} />
     </header>
   );
 }

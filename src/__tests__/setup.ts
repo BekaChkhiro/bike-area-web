@@ -13,6 +13,11 @@ class ResizeObserverMock {
 
 global.ResizeObserver = ResizeObserverMock;
 
+// Mock pointer capture methods for Radix UI components
+Element.prototype.hasPointerCapture = vi.fn().mockReturnValue(false);
+Element.prototype.setPointerCapture = vi.fn();
+Element.prototype.releasePointerCapture = vi.fn();
+
 // Mock IntersectionObserver
 class IntersectionObserverMock {
   observe() {}
