@@ -57,7 +57,7 @@ export function Sidebar({ isCollapsed = false, onToggle, className }: SidebarPro
     <TooltipProvider delayDuration={0}>
       <aside
         className={cn(
-          'relative flex h-full flex-col border-r bg-background transition-all duration-300',
+          'relative flex h-full flex-col border-r border-border/40 bg-background/50 backdrop-blur-sm transition-all duration-300',
           isCollapsed ? 'w-16' : 'w-64',
           className
         )}
@@ -113,7 +113,7 @@ export function Sidebar({ isCollapsed = false, onToggle, className }: SidebarPro
         </ScrollArea>
 
         {/* User section */}
-        <div className="border-t p-2">
+        <div className="border-t border-border/40 p-3">
           {isCollapsed ? (
             <Tooltip>
               <TooltipTrigger asChild>

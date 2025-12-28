@@ -62,7 +62,7 @@ export function ProfileHeader({
   return (
     <div className={cn('relative', className)}>
       {/* Cover Photo */}
-      <div className="relative h-32 w-full overflow-hidden rounded-t-xl bg-muted sm:h-48 lg:h-56">
+      <div className="relative h-36 w-full overflow-hidden rounded-t-2xl bg-muted sm:h-52 lg:h-64">
         {user.coverUrl ? (
           <Image
             src={user.coverUrl}
@@ -72,8 +72,10 @@ export function ProfileHeader({
             priority
           />
         ) : (
-          <div className="h-full w-full bg-gradient-to-br from-primary/20 to-primary/5" />
+          <div className="h-full w-full bg-gradient-to-br from-primary via-primary/60 to-secondary/40" />
         )}
+        {/* Premium overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
 
         {isOwnProfile && (
           <>
@@ -101,13 +103,13 @@ export function ProfileHeader({
       </div>
 
       {/* Profile Info */}
-      <div className="relative px-4 pb-4 sm:px-6">
+      <div className="relative px-6 pb-6 sm:px-8">
         {/* Avatar */}
-        <div className="relative -mt-16 mb-4 sm:-mt-20">
+        <div className="relative -mt-18 mb-5 sm:-mt-24">
           <div className="relative inline-block">
-            <Avatar className="size-28 border-4 border-background sm:size-36">
+            <Avatar className="size-32 border-4 border-background shadow-xl ring-4 ring-background sm:size-40">
               <AvatarImage src={user.avatarUrl} alt={user.fullName} />
-              <AvatarFallback className="text-2xl sm:text-3xl">
+              <AvatarFallback className="text-2xl font-semibold sm:text-3xl bg-gradient-to-br from-primary to-secondary text-white">
                 {getInitials(user.fullName)}
               </AvatarFallback>
             </Avatar>
@@ -139,19 +141,19 @@ export function ProfileHeader({
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="min-w-0 flex-1">
             {/* Name & Username */}
-            <div className="flex items-center gap-2">
-              <h1 className="truncate text-xl font-bold sm:text-2xl">
+            <div className="flex items-center gap-2.5">
+              <h1 className="truncate font-display text-2xl font-semibold tracking-tight sm:text-3xl">
                 {user.fullName}
               </h1>
               {user.isVerified && (
-                <BadgeCheck className="size-5 shrink-0 text-primary" />
+                <BadgeCheck className="size-6 shrink-0 text-primary drop-shadow-sm" />
               )}
             </div>
-            <p className="text-muted-foreground">@{user.username}</p>
+            <p className="text-muted-foreground text-base">@{user.username}</p>
 
             {/* Bio */}
             {user.bio && (
-              <p className="mt-2 whitespace-pre-wrap text-sm">{user.bio}</p>
+              <p className="mt-3 whitespace-pre-wrap text-base leading-relaxed">{user.bio}</p>
             )}
 
             {/* Meta Info */}

@@ -54,7 +54,7 @@ export function Header({ onMenuClick, className }: HeaderProps) {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 flex h-16 items-center gap-4 border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60',
+        'sticky top-0 z-50 flex h-16 items-center gap-4 border-b border-border/40 bg-background/80 px-6 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 shadow-sm',
         className
       )}
     >
@@ -70,9 +70,11 @@ export function Header({ onMenuClick, className }: HeaderProps) {
       </Button>
 
       {/* Logo */}
-      <Link href="/feed" className="flex items-center gap-2">
-        <Bike className="h-8 w-8 text-primary" />
-        <span className="hidden font-display text-xl font-bold sm:inline-block">
+      <Link href="/feed" className="flex items-center gap-3 group">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/80 shadow-md shadow-primary/20 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-primary/30">
+          <Bike className="h-6 w-6 text-white" />
+        </div>
+        <span className="hidden font-display text-xl font-semibold tracking-tight text-foreground sm:inline-block">
           Bike Area
         </span>
       </Link>
