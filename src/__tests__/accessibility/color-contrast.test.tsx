@@ -153,12 +153,11 @@ describe('Color Contrast - WCAG Compliance', () => {
       expect(badge.className).toContain('bg-destructive');
     });
 
-    it('should have logo with visible text', () => {
+    it('should have logo with visible image', () => {
       render(<Header />);
 
-      const logo = screen.getByText('Bike Area');
+      const logo = screen.getByAltText('Rideway');
       expect(logo).toBeInTheDocument();
-      expect(logo.className).toContain('font-bold');
     });
   });
 

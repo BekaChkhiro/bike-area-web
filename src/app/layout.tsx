@@ -19,8 +19,8 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Bike Area - Motorcycle Community',
-    template: '%s | Bike Area',
+    default: 'Rideway - Motorcycle Community',
+    template: '%s | Rideway',
   },
   description:
     'Connect with motorcycle enthusiasts, share your rides, buy and sell bikes and parts.',
@@ -32,19 +32,19 @@ export const metadata: Metadata = {
     'marketplace',
     'forum',
   ],
-  authors: [{ name: 'Bike Area' }],
-  creator: 'Bike Area',
+  authors: [{ name: 'Rideway' }],
+  creator: 'Rideway',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    siteName: 'Bike Area',
-    title: 'Bike Area - Motorcycle Community',
+    siteName: 'Rideway',
+    title: 'Rideway - Motorcycle Community',
     description:
       'Connect with motorcycle enthusiasts, share your rides, buy and sell bikes and parts.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Bike Area - Motorcycle Community',
+    title: 'Rideway - Motorcycle Community',
     description:
       'Connect with motorcycle enthusiasts, share your rides, buy and sell bikes and parts.',
   },

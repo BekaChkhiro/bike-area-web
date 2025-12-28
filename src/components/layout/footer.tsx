@@ -1,45 +1,50 @@
 import Link from 'next/link';
-import { Bike } from 'lucide-react';
+import Image from 'next/image';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t bg-background">
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+    <footer className="border-t border-border/40 bg-muted/30">
+      <div className="container mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
           {/* Brand */}
-          <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2">
-              <Bike className="h-8 w-8 text-primary" />
-              <span className="font-display text-xl font-bold">Bike Area</span>
+          <div className="space-y-5">
+            <Link href="/" className="flex items-center gap-2 group">
+              <Image
+                src="/Rideway-logo.svg"
+                alt="Rideway"
+                width={120}
+                height={40}
+                className="h-10 w-auto"
+              />
             </Link>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground leading-relaxed">
               The ultimate community for motorcycle enthusiasts. Connect, share, and ride together.
             </p>
           </div>
 
           {/* Quick Links */}
-          <div className="space-y-4">
-            <h4 className="font-semibold">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
+          <div className="space-y-5">
+            <h4 className="font-semibold text-foreground">Quick Links</h4>
+            <ul className="space-y-3 text-sm">
               <li>
-                <Link href="/explore" className="text-muted-foreground hover:text-primary">
+                <Link href="/explore" className="text-muted-foreground hover:text-primary transition-colors duration-200">
                   Explore
                 </Link>
               </li>
               <li>
-                <Link href="/marketplace" className="text-muted-foreground hover:text-primary">
+                <Link href="/marketplace" className="text-muted-foreground hover:text-primary transition-colors duration-200">
                   Marketplace
                 </Link>
               </li>
               <li>
-                <Link href="/forum" className="text-muted-foreground hover:text-primary">
+                <Link href="/forum" className="text-muted-foreground hover:text-primary transition-colors duration-200">
                   Forum
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-muted-foreground hover:text-primary">
+                <Link href="/services" className="text-muted-foreground hover:text-primary transition-colors duration-200">
                   Services
                 </Link>
               </li>
@@ -47,26 +52,26 @@ export function Footer() {
           </div>
 
           {/* Company */}
-          <div className="space-y-4">
-            <h4 className="font-semibold">Company</h4>
-            <ul className="space-y-2 text-sm">
+          <div className="space-y-5">
+            <h4 className="font-semibold text-foreground">Company</h4>
+            <ul className="space-y-3 text-sm">
               <li>
-                <Link href="/about" className="text-muted-foreground hover:text-primary">
+                <Link href="/about" className="text-muted-foreground hover:text-primary transition-colors duration-200">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/careers" className="text-muted-foreground hover:text-primary">
+                <Link href="/careers" className="text-muted-foreground hover:text-primary transition-colors duration-200">
                   Careers
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-muted-foreground hover:text-primary">
+                <Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors duration-200">
                   Contact
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-muted-foreground hover:text-primary">
+                <Link href="/blog" className="text-muted-foreground hover:text-primary transition-colors duration-200">
                   Blog
                 </Link>
               </li>
@@ -74,21 +79,21 @@ export function Footer() {
           </div>
 
           {/* Legal */}
-          <div className="space-y-4">
-            <h4 className="font-semibold">Legal</h4>
-            <ul className="space-y-2 text-sm">
+          <div className="space-y-5">
+            <h4 className="font-semibold text-foreground">Legal</h4>
+            <ul className="space-y-3 text-sm">
               <li>
-                <Link href="/privacy" className="text-muted-foreground hover:text-primary">
+                <Link href="/privacy" className="text-muted-foreground hover:text-primary transition-colors duration-200">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-muted-foreground hover:text-primary">
+                <Link href="/terms" className="text-muted-foreground hover:text-primary transition-colors duration-200">
                   Terms of Service
                 </Link>
               </li>
               <li>
-                <Link href="/cookies" className="text-muted-foreground hover:text-primary">
+                <Link href="/cookies" className="text-muted-foreground hover:text-primary transition-colors duration-200">
                   Cookie Policy
                 </Link>
               </li>
@@ -97,16 +102,16 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t pt-8 sm:flex-row">
+        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-border/40 pt-8 sm:flex-row">
           <p className="text-sm text-muted-foreground">
-            &copy; {currentYear} Bike Area. All rights reserved.
+            &copy; {currentYear} Rideway. All rights reserved.
           </p>
-          <div className="flex gap-4">
+          <div className="flex gap-6">
             <Link
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary"
+              className="text-muted-foreground hover:text-primary transition-colors duration-200"
             >
               Twitter
             </Link>
@@ -114,7 +119,7 @@ export function Footer() {
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary"
+              className="text-muted-foreground hover:text-primary transition-colors duration-200"
             >
               Instagram
             </Link>
@@ -122,7 +127,7 @@ export function Footer() {
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary"
+              className="text-muted-foreground hover:text-primary transition-colors duration-200"
             >
               Facebook
             </Link>

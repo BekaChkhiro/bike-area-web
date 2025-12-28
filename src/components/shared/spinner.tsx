@@ -4,7 +4,7 @@ import { Loader2 } from 'lucide-react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
-const spinnerVariants = cva('animate-spin', {
+const spinnerVariants = cva('animate-spin transition-colors', {
   variants: {
     size: {
       xs: 'h-3 w-3',
@@ -18,6 +18,7 @@ const spinnerVariants = cva('animate-spin', {
       muted: 'text-muted-foreground',
       white: 'text-white',
       destructive: 'text-destructive',
+      secondary: 'text-secondary',
     },
   },
   defaultVariants: {
@@ -74,7 +75,7 @@ export function CenteredSpinner({
   return (
     <div
       className={cn(
-        'flex items-center justify-center p-8',
+        'flex items-center justify-center p-10',
         containerClassName
       )}
     >
@@ -92,7 +93,7 @@ export function OverlaySpinner({ show = true, ...spinnerProps }: OverlaySpinnerP
   if (!show) return null;
 
   return (
-    <div className="absolute inset-0 z-10 flex items-center justify-center bg-background/80 backdrop-blur-sm">
+    <div className="absolute inset-0 z-10 flex items-center justify-center rounded-2xl bg-background/85 backdrop-blur-sm">
       <Spinner {...spinnerProps} />
     </div>
   );

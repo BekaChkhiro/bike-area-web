@@ -76,8 +76,8 @@ export function ConfirmDialog({
       <AlertDialogContent>
         <AlertDialogHeader>
           {variant === 'destructive' && (
-            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-destructive/10">
-              <AlertTriangle className="h-6 w-6 text-destructive" />
+            <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-destructive/10 to-destructive/20 shadow-sm">
+              <AlertTriangle className="h-7 w-7 text-destructive" />
             </div>
           )}
           <AlertDialogTitle className={variant === 'destructive' ? 'text-center' : ''}>
@@ -90,7 +90,7 @@ export function ConfirmDialog({
           )}
         </AlertDialogHeader>
 
-        <AlertDialogFooter className={variant === 'destructive' ? 'sm:justify-center' : ''}>
+        <AlertDialogFooter className={cn('gap-3', variant === 'destructive' ? 'sm:justify-center' : '')}>
           <AlertDialogCancel onClick={handleCancel} disabled={isLoading}>
             {cancelText}
           </AlertDialogCancel>
@@ -99,7 +99,7 @@ export function ConfirmDialog({
             disabled={isLoading || disabled}
             className={cn(
               variant === 'destructive' &&
-                'bg-destructive text-destructive-foreground hover:bg-destructive/90'
+                'bg-destructive text-destructive-foreground hover:bg-destructive/90 hover:shadow-md hover:shadow-destructive/20'
             )}
           >
             {isLoading && <Spinner size="sm" variant="white" className="mr-2" />}

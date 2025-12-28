@@ -26,9 +26,9 @@ export function SkeletonList({
   return (
     <div className={cn('space-y-4', className)}>
       {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className={cn('flex items-center gap-4', itemClassName)}>
-          <Skeleton className="h-12 w-12 rounded-lg" />
-          <div className="flex-1 space-y-2">
+        <div key={i} className={cn('flex items-center gap-4 p-4 rounded-xl bg-card/50', itemClassName)}>
+          <Skeleton className="h-12 w-12 rounded-xl" />
+          <div className="flex-1 space-y-2.5">
             <Skeleton className="h-4 w-3/4" />
             <Skeleton className="h-3 w-1/2" />
           </div>
@@ -46,10 +46,10 @@ export function PostFeedSkeleton({
   return (
     <div className={cn('space-y-6', className)}>
       {/* Create post card */}
-      <div className="rounded-lg border bg-card p-4">
-        <div className="flex gap-3">
-          <Skeleton className="h-10 w-10 rounded-full" />
-          <Skeleton className="h-10 flex-1 rounded-full" />
+      <div className="rounded-2xl border border-border/50 bg-card p-5 shadow-sm">
+        <div className="flex gap-4">
+          <Skeleton className="h-11 w-11 rounded-full" />
+          <Skeleton className="h-11 flex-1 rounded-full" />
         </div>
       </div>
 
@@ -86,7 +86,7 @@ export function GridSkeleton({
           return <ListingCardSkeleton key={i} />;
         }
         if (variant === 'square') {
-          return <Skeleton key={i} className="aspect-square rounded-lg" />;
+          return <Skeleton key={i} className="aspect-square rounded-xl" />;
         }
         return <SkeletonCard key={i} />;
       })}
@@ -180,12 +180,12 @@ export function MessageListSkeleton({
         <div
           key={i}
           className={cn(
-            'flex items-center gap-3 rounded-lg p-3',
-            i === 0 && 'bg-muted'
+            'flex items-center gap-4 rounded-xl p-4',
+            i === 0 && 'bg-muted/50'
           )}
         >
           <Skeleton className="h-12 w-12 rounded-full shrink-0" />
-          <div className="flex-1 min-w-0 space-y-2">
+          <div className="flex-1 min-w-0 space-y-2.5">
             <div className="flex items-center justify-between gap-2">
               <Skeleton className="h-4 w-32" />
               <Skeleton className="h-3 w-12" />

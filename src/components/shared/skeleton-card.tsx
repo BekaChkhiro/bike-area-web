@@ -25,13 +25,13 @@ export function SkeletonCard({
   };
 
   return (
-    <div className={cn('rounded-lg border bg-card overflow-hidden', className)}>
+    <div className={cn('rounded-2xl border border-border/50 bg-card overflow-hidden shadow-sm', className)}>
       {/* Image skeleton */}
       {showImage && (
         <Skeleton className={cn('w-full', aspectClasses[imageAspect])} />
       )}
 
-      <div className="p-4 space-y-3">
+      <div className="p-5 space-y-4">
         {/* Avatar and title */}
         {showAvatar && (
           <div className="flex items-center gap-3">
@@ -61,15 +61,15 @@ export function SkeletonCard({
 // Post card skeleton
 export function PostCardSkeleton({ className }: { className?: string }) {
   return (
-    <div className={cn('rounded-lg border bg-card p-4 space-y-4', className)}>
+    <div className={cn('rounded-2xl border border-border/50 bg-card p-6 space-y-5 shadow-sm', className)}>
       {/* Header */}
       <div className="flex items-center gap-3">
-        <Skeleton className="h-10 w-10 rounded-full" />
+        <Skeleton className="h-11 w-11 rounded-full" />
         <div className="flex-1 space-y-2">
           <Skeleton className="h-4 w-32" />
           <Skeleton className="h-3 w-24" />
         </div>
-        <Skeleton className="h-8 w-8" />
+        <Skeleton className="h-9 w-9 rounded-lg" />
       </div>
 
       {/* Content */}
@@ -79,15 +79,15 @@ export function PostCardSkeleton({ className }: { className?: string }) {
       </div>
 
       {/* Image */}
-      <Skeleton className="h-64 w-full rounded-lg" />
+      <Skeleton className="h-64 w-full rounded-xl" />
 
       {/* Actions */}
-      <div className="flex gap-4">
-        <Skeleton className="h-8 w-16" />
-        <Skeleton className="h-8 w-16" />
-        <Skeleton className="h-8 w-16" />
+      <div className="flex gap-4 pt-1">
+        <Skeleton className="h-9 w-20 rounded-lg" />
+        <Skeleton className="h-9 w-20 rounded-lg" />
+        <Skeleton className="h-9 w-20 rounded-lg" />
         <div className="flex-1" />
-        <Skeleton className="h-8 w-8" />
+        <Skeleton className="h-9 w-9 rounded-lg" />
       </div>
     </div>
   );
@@ -96,13 +96,13 @@ export function PostCardSkeleton({ className }: { className?: string }) {
 // Marketplace listing skeleton
 export function ListingCardSkeleton({ className }: { className?: string }) {
   return (
-    <div className={cn('rounded-lg border bg-card overflow-hidden', className)}>
+    <div className={cn('rounded-2xl border border-border/50 bg-card overflow-hidden shadow-sm', className)}>
       <Skeleton className="aspect-square w-full" />
-      <div className="p-4 space-y-2">
+      <div className="p-5 space-y-3">
         <Skeleton className="h-5 w-3/4" />
         <Skeleton className="h-4 w-full" />
         <div className="flex items-center justify-between pt-2">
-          <Skeleton className="h-6 w-24" />
+          <Skeleton className="h-6 w-28 rounded-lg" />
           <Skeleton className="h-4 w-16" />
         </div>
       </div>
@@ -115,7 +115,7 @@ export function UserCardSkeleton({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        'flex items-center gap-3 rounded-lg border bg-card p-4',
+        'flex items-center gap-4 rounded-2xl border border-border/50 bg-card p-5 shadow-sm',
         className
       )}
     >
@@ -124,7 +124,7 @@ export function UserCardSkeleton({ className }: { className?: string }) {
         <Skeleton className="h-4 w-32" />
         <Skeleton className="h-3 w-24" />
       </div>
-      <Skeleton className="h-9 w-20" />
+      <Skeleton className="h-10 w-24 rounded-lg" />
     </div>
   );
 }
@@ -132,9 +132,9 @@ export function UserCardSkeleton({ className }: { className?: string }) {
 // Comment skeleton
 export function CommentSkeleton({ className }: { className?: string }) {
   return (
-    <div className={cn('flex gap-3', className)}>
-      <Skeleton className="h-8 w-8 rounded-full shrink-0" />
-      <div className="flex-1 space-y-2">
+    <div className={cn('flex gap-4', className)}>
+      <Skeleton className="h-9 w-9 rounded-full shrink-0" />
+      <div className="flex-1 space-y-2.5">
         <div className="flex items-center gap-2">
           <Skeleton className="h-4 w-24" />
           <Skeleton className="h-3 w-16" />
@@ -149,11 +149,11 @@ export function CommentSkeleton({ className }: { className?: string }) {
 // Notification skeleton
 export function NotificationSkeleton({ className }: { className?: string }) {
   return (
-    <div className={cn('flex items-start gap-3 p-4', className)}>
-      <Skeleton className="h-10 w-10 rounded-full shrink-0" />
-      <div className="flex-1 space-y-2">
+    <div className={cn('flex items-start gap-4 p-5', className)}>
+      <Skeleton className="h-11 w-11 rounded-full shrink-0" />
+      <div className="flex-1 space-y-2.5">
         <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-3 w-20" />
+        <Skeleton className="h-3 w-24" />
       </div>
     </div>
   );

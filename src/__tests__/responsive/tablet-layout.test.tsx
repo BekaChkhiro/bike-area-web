@@ -82,12 +82,11 @@ describe('Tablet Layout (640px - 1023px)', () => {
       expect(menuButton.className).toContain('lg:hidden');
     });
 
-    it('should show logo text on tablet', () => {
+    it('should show logo on tablet', () => {
       render(<Header />);
 
-      const logoText = screen.getByText('Bike Area');
-      // sm:inline-block means visible on sm+
-      expect(logoText.className).toContain('sm:inline-block');
+      const logo = screen.getByAltText('Rideway');
+      expect(logo).toBeInTheDocument();
     });
 
     it('should have search bar with medium max-width', () => {

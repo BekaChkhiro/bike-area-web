@@ -186,10 +186,10 @@ export function ImageUpload({
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
           className={cn(
-            'relative flex min-h-[150px] cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 transition-colors',
+            'relative flex min-h-[180px] cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed p-8 transition-all duration-200',
             isDragging
-              ? 'border-primary bg-primary/5'
-              : 'border-muted-foreground/25 hover:border-primary/50 hover:bg-muted/50',
+              ? 'border-primary bg-primary/5 shadow-lg shadow-primary/10'
+              : 'border-muted-foreground/25 hover:border-primary/50 hover:bg-muted/30 hover:shadow-md',
             disabled && 'cursor-not-allowed opacity-50',
             dropzoneClassName
           )}
@@ -204,15 +204,17 @@ export function ImageUpload({
             disabled={disabled}
           />
 
-          <Upload className="mb-2 h-8 w-8 text-muted-foreground" />
+          <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10">
+            <Upload className="h-7 w-7 text-primary" />
+          </div>
           <p className="text-sm font-medium">
             Drop images here or click to upload
           </p>
-          <p className="mt-1 text-xs text-muted-foreground">
+          <p className="mt-2 text-xs text-muted-foreground">
             {acceptedTypes.map((t) => (t.split('/')[1] ?? t).toUpperCase()).join(', ')} up to {maxSize}MB
           </p>
           {maxFiles > 1 && (
-            <p className="mt-1 text-xs text-muted-foreground">
+            <p className="mt-1.5 text-xs text-muted-foreground">
               {files.length}/{maxFiles} files
             </p>
           )}
@@ -235,7 +237,7 @@ export function ImageUpload({
           {files.map((imageFile) => (
             <div
               key={imageFile.id}
-              className="group relative aspect-square overflow-hidden rounded-lg border bg-muted"
+              className="group relative aspect-square overflow-hidden rounded-xl border border-border/50 bg-muted shadow-sm"
             >
               {imageFile.preview ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -252,9 +254,9 @@ export function ImageUpload({
 
               {/* Progress overlay */}
               {typeof imageFile.progress === 'number' && imageFile.progress < 100 && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/50">
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm">
                   <Progress value={imageFile.progress} className="w-3/4" />
-                  <span className="mt-2 text-sm text-white">
+                  <span className="mt-3 text-sm font-medium text-white">
                     {imageFile.progress}%
                   </span>
                 </div>
@@ -262,9 +264,9 @@ export function ImageUpload({
 
               {/* Error overlay */}
               {imageFile.error && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-destructive/90 p-2 text-center">
-                  <AlertCircle className="mb-1 h-6 w-6 text-white" />
-                  <span className="text-xs text-white">{imageFile.error}</span>
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-destructive/90 p-3 text-center backdrop-blur-sm">
+                  <AlertCircle className="mb-2 h-7 w-7 text-white" />
+                  <span className="text-xs font-medium text-white">{imageFile.error}</span>
                 </div>
               )}
 
@@ -273,7 +275,7 @@ export function ImageUpload({
                 type="button"
                 variant="destructive"
                 size="icon"
-                className="absolute right-2 top-2 h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100"
+                className="absolute right-2 top-2 h-7 w-7 rounded-lg opacity-0 shadow-md transition-all duration-200 group-hover:opacity-100"
                 onClick={() => handleRemove(imageFile.id)}
               >
                 <X className="h-4 w-4" />
@@ -378,7 +380,7 @@ export function SingleImageUpload({
       />
 
       {preview ? (
-        <div className="group relative h-full w-full overflow-hidden rounded-lg">
+        <div className="group relative h-full w-full overflow-hidden rounded-2xl">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={preview}
@@ -388,18 +390,19 @@ export function SingleImageUpload({
 
           {/* Loading overlay */}
           {isLoading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-              <div className="h-8 w-8 animate-spin rounded-full border-2 border-white border-t-transparent" />
+            <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+              <div className="h-10 w-10 animate-spin rounded-full border-3 border-white border-t-transparent" />
             </div>
           )}
 
           {/* Actions overlay */}
           {!isLoading && (
-            <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
+            <div className="absolute inset-0 flex items-center justify-center gap-3 bg-black/60 opacity-0 backdrop-blur-sm transition-all duration-200 group-hover:opacity-100">
               <Button
                 type="button"
                 size="sm"
                 variant="secondary"
+                className="shadow-md"
                 onClick={() => inputRef.current?.click()}
               >
                 Change
@@ -408,6 +411,7 @@ export function SingleImageUpload({
                 type="button"
                 size="sm"
                 variant="destructive"
+                className="shadow-md"
                 onClick={handleRemove}
               >
                 Remove
@@ -421,15 +425,17 @@ export function SingleImageUpload({
           onClick={() => inputRef.current?.click()}
           disabled={disabled}
           className={cn(
-            'flex h-full w-full flex-col items-center justify-center rounded-lg border-2 border-dashed transition-colors',
-            'border-muted-foreground/25 hover:border-primary/50 hover:bg-muted/50',
+            'flex h-full w-full flex-col items-center justify-center rounded-2xl border-2 border-dashed transition-all duration-200',
+            'border-muted-foreground/25 hover:border-primary/50 hover:bg-muted/30 hover:shadow-md',
             disabled && 'cursor-not-allowed opacity-50'
           )}
         >
           {placeholder || (
             <>
-              <Upload className="mb-2 h-8 w-8 text-muted-foreground" />
-              <span className="text-sm text-muted-foreground">
+              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10">
+                <Upload className="h-6 w-6 text-primary" />
+              </div>
+              <span className="text-sm font-medium text-muted-foreground">
                 Click to upload
               </span>
             </>

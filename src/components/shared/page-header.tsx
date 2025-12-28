@@ -61,18 +61,18 @@ export function PageHeader({
   return (
     <div
       className={cn(
-        'flex flex-col gap-4 pb-6',
-        sticky && 'sticky top-16 z-10 bg-background pt-4',
+        'flex flex-col gap-5 pb-8',
+        sticky && 'sticky top-16 z-10 bg-background/95 backdrop-blur-sm pt-5',
         className
       )}
     >
       <div className="flex items-start justify-between gap-4">
-        <div className="flex items-start gap-3">
+        <div className="flex items-start gap-4">
           {showBack && (
             <Button
               variant="ghost"
               size="icon"
-              className="mt-0.5 shrink-0"
+              className="mt-0.5 shrink-0 rounded-lg"
               onClick={handleBack}
             >
               <ArrowLeft className="h-5 w-5" />
@@ -80,17 +80,17 @@ export function PageHeader({
             </Button>
           )}
 
-          <div className="space-y-1">
+          <div className="space-y-1.5">
             <h1
               className={cn(
-                'text-2xl font-bold tracking-tight',
+                'font-display text-2xl font-bold tracking-tight',
                 titleClassName
               )}
             >
               {title}
             </h1>
             {description && (
-              <p className="text-muted-foreground">{description}</p>
+              <p className="text-muted-foreground leading-relaxed">{description}</p>
             )}
           </div>
         </div>
@@ -137,16 +137,16 @@ function PageHeaderSkeleton({
   className?: string;
 }) {
   return (
-    <div className={cn('flex flex-col gap-4 pb-6', className)}>
+    <div className={cn('flex flex-col gap-5 pb-8', className)}>
       <div className="flex items-start justify-between gap-4">
-        <div className="flex items-start gap-3">
-          {showBack && <Skeleton className="h-10 w-10" />}
-          <div className="space-y-2">
+        <div className="flex items-start gap-4">
+          {showBack && <Skeleton className="h-10 w-10 rounded-lg" />}
+          <div className="space-y-2.5">
             <Skeleton className="h-8 w-48" />
             <Skeleton className="h-4 w-64" />
           </div>
         </div>
-        <Skeleton className="h-10 w-24" />
+        <Skeleton className="h-10 w-28 rounded-lg" />
       </div>
     </div>
   );
@@ -168,15 +168,15 @@ export function SectionHeader({
 }: SectionHeaderProps) {
   return (
     <div
-      className={cn('flex items-start justify-between gap-4 pb-4', className)}
+      className={cn('flex items-start justify-between gap-4 pb-5', className)}
     >
-      <div className="space-y-1">
-        <h2 className="text-lg font-semibold">{title}</h2>
+      <div className="space-y-1.5">
+        <h2 className="font-display text-lg font-semibold tracking-tight">{title}</h2>
         {description && (
-          <p className="text-sm text-muted-foreground">{description}</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
         )}
       </div>
-      {actions && <div className="flex items-center gap-2">{actions}</div>}
+      {actions && <div className="flex items-center gap-3">{actions}</div>}
     </div>
   );
 }
@@ -200,24 +200,24 @@ export function CardHeader({
   return (
     <div
       className={cn(
-        'flex items-start justify-between gap-4 border-b px-6 py-4',
+        'flex items-start justify-between gap-4 border-b border-border/40 px-6 py-5',
         className
       )}
     >
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-4">
         {icon && (
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 text-primary shadow-sm">
             {icon}
           </div>
         )}
-        <div className="space-y-1">
-          <h3 className="font-semibold">{title}</h3>
+        <div className="space-y-1.5">
+          <h3 className="font-display font-semibold tracking-tight">{title}</h3>
           {description && (
-            <p className="text-sm text-muted-foreground">{description}</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
           )}
         </div>
       </div>
-      {actions && <div className="flex items-center gap-2">{actions}</div>}
+      {actions && <div className="flex items-center gap-3">{actions}</div>}
     </div>
   );
 }

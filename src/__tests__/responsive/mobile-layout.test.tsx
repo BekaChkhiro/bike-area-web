@@ -81,13 +81,11 @@ describe('Mobile Layout (320px - 639px)', () => {
       expect(searchContainer?.className).toContain('md:flex');
     });
 
-    it('should hide logo text on small screens', () => {
+    it('should show logo on small screens', () => {
       render(<Header />);
 
-      const logoText = screen.getByText('Bike Area');
-      // sm:inline-block means hidden on xs, visible on sm+
-      expect(logoText.className).toContain('hidden');
-      expect(logoText.className).toContain('sm:inline-block');
+      const logo = screen.getByAltText('Rideway');
+      expect(logo).toBeInTheDocument();
     });
 
     it('should show compact header elements', () => {

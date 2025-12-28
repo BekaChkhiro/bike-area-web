@@ -1,10 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import {
-  Bike,
   Bell,
   Menu,
   LogOut,
@@ -70,13 +70,15 @@ export function Header({ onMenuClick, className }: HeaderProps) {
       </Button>
 
       {/* Logo */}
-      <Link href="/feed" className="flex items-center gap-3 group">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/80 shadow-md shadow-primary/20 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-primary/30">
-          <Bike className="h-6 w-6 text-white" />
-        </div>
-        <span className="hidden font-display text-xl font-semibold tracking-tight text-foreground sm:inline-block">
-          Bike Area
-        </span>
+      <Link href="/feed" className="flex items-center gap-2 group">
+        <Image
+          src="/Rideway-logo.svg"
+          alt="Rideway"
+          width={120}
+          height={40}
+          className="h-10 w-auto"
+          priority
+        />
       </Link>
 
       {/* Search - Opens modal on click */}

@@ -73,12 +73,11 @@ describe('Desktop Layout (1024px+)', () => {
       expect(searchContainer?.className).toContain('lg:max-w-lg');
     });
 
-    it('should show full logo with text', () => {
+    it('should show full logo', () => {
       render(<Header />);
 
-      const logoText = screen.getByText('Bike Area');
-      expect(logoText).toBeInTheDocument();
-      expect(logoText.className).toContain('sm:inline-block');
+      const logo = screen.getByAltText('Rideway');
+      expect(logo).toBeInTheDocument();
     });
 
     it('should display all header actions', () => {

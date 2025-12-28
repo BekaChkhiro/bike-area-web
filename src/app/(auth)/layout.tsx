@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Bike } from 'lucide-react';
+import Image from 'next/image';
 import { ThemeToggleSimple } from '@/components/shared/theme-toggle';
 
 export default function AuthLayout({
@@ -12,8 +12,13 @@ export default function AuthLayout({
       {/* Header */}
       <header className="absolute left-0 right-0 top-0 z-10 flex items-center justify-between p-4">
         <Link href="/" className="flex items-center gap-2">
-          <Bike className="h-8 w-8 text-primary" />
-          <span className="font-display text-xl font-bold">Bike Area</span>
+          <Image
+            src="/Rideway-logo.svg"
+            alt="Rideway"
+            width={120}
+            height={40}
+            className="h-10 w-auto"
+          />
         </Link>
         <ThemeToggleSimple />
       </header>
@@ -25,7 +30,7 @@ export default function AuthLayout({
 
       {/* Footer */}
       <footer className="py-4 text-center text-sm text-muted-foreground">
-        <p>&copy; {new Date().getFullYear()} Bike Area. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Rideway. All rights reserved.</p>
       </footer>
     </div>
   );

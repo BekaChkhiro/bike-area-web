@@ -71,18 +71,18 @@ export function EmptyState({
       {icon && (
         <div
           className={cn(
-            'mb-4 flex items-center justify-center rounded-full bg-muted',
+            'mb-5 flex items-center justify-center rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/10 shadow-sm',
             sizes.iconWrapper
           )}
         >
-          <div className={cn('text-muted-foreground', sizes.icon)}>{icon}</div>
+          <div className={cn('text-primary/70', sizes.icon)}>{icon}</div>
         </div>
       )}
-      <h3 className={cn('mb-2 font-semibold', sizes.title)}>{title}</h3>
+      <h3 className={cn('mb-2 font-semibold tracking-tight', sizes.title)}>{title}</h3>
       {description && (
         <p
           className={cn(
-            'mb-4 max-w-sm text-muted-foreground',
+            'mb-5 max-w-sm text-muted-foreground leading-relaxed',
             sizes.description
           )}
         >
